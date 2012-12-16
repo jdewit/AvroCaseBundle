@@ -2,7 +2,7 @@
     "name": "avro/case-bundle",
     "type": "symfony-bundle",
     "description": "Symfony2 Case Converter Bundle",
-    "keywords": ["pascal, title, camel, converter"],
+    "keywords": ["pascal", "title", "camel", "converter"],
     "homepage": "http://github.com/jdewit/AvroCaseBundle",
     "license": "MIT",
     "authors": [
