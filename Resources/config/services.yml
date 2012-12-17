@@ -3,7 +3,7 @@ services:
         class: Avro\CaseBundle\Util\CaseConverter
 
     avro_case.twig.extension:
-        class: Avro\CaseBundle\Twig\Extension/CaseExtension
+        class: Avro\CaseBundle\Twig\Extension\CaseExtension
         tags:
             -  { name: twig.extension } 
         arguments: ["@avro_case.converter"]
