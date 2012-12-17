@@ -2,7 +2,7 @@ AvroCaseBundle
 -----------------
 Convert strings to different formats.
 
-Supports: camelCase, PascalCase, Title Case, underscore_case.
+Supports: camelCase, PascalCase, Title Case, and underscore_case.
 
 Installation
 ------------
@@ -26,9 +26,21 @@ Enable the bundle in the kernel:
 Usage
 -----
 ``` php
-$str = 'underscore_format';
+$converter = $this->container->get('avro_case.converter');
 
-$camelCaseFormat = $this->container->get('avro_case.converter')->underscoreToCamelCase($str);
+$camelCaseFormat = $converter->toCamelCase($str);
+$pascalCaseFormat = $converter->toPascalCase($str);
+$titleCaseFormat = $converter->toTitleCase($str);
+$underscoreCaseFormat = $converter->toUnderscoreCase($str);
+```
+
+You can also convert string in your Twig files using the following functions
+
+``` jinja
+    {{ var | camel }}
+    {{ var | pascal }}
+    {{ var | title }}
+    {{ var | underscore }}
 ```
 
 
