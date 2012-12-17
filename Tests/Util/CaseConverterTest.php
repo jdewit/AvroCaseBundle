@@ -50,6 +50,14 @@ class CaseConverterTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testTitleToTitleCase()
+    {
+        $this->assertEquals(
+            'Title Case Format',
+            $this->converter->toTitleCase('Title Case Format')
+        );
+    }
+
     public function testTitleToCamelCase()
     {
         $this->assertEquals(

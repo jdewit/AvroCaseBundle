@@ -50,7 +50,7 @@ class CaseConverter
         // underscore
         $str = preg_replace_callback('/_([a-z])/', create_function('$c', 'return " " . strtoupper($c[1]);'), $str);
 
-        return trim($str);
+        return trim(preg_replace('/\s+/', ' ', $str));
     }
 
     /**

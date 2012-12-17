@@ -34,10 +34,10 @@ class CaseExtension extends \Twig_Extension
     public function getFilters()
     {
         return array(
-            'camel'   => new \Twig_Filter_Method($this, 'camelCase'),
-            'pascal'   => new \Twig_Filter_Method($this, 'pascalCase'),
-            'underscore'   => new \Twig_Filter_Method($this, 'underscoreCase'),
-            'title'   => new \Twig_Filter_Method($this, 'titleCase')
+            'camel'   => new \Twig_Filter_Method($this, 'toCamelCase'),
+            'pascal'   => new \Twig_Filter_Method($this, 'toPascalCase'),
+            'underscore'   => new \Twig_Filter_Method($this, 'toUnderscoreCase'),
+            'title'   => new \Twig_Filter_Method($this, 'toTitleCase')
         );
     }
 
@@ -48,7 +48,7 @@ class CaseExtension extends \Twig_Extension
      *
      * @return string In camel case
      */
-    public function camelCase($input)
+    public function toCamelCase($input)
     {
         return $this->caseConverter->toCamelCase($input);
     }
@@ -60,7 +60,7 @@ class CaseExtension extends \Twig_Extension
      *
      * @return string In pascal case
      */
-    public function pascalCase($input)
+    public function toPascalCase($input)
     {
         return $this->caseConverter->toPascalCase($input);
     }
@@ -72,7 +72,7 @@ class CaseExtension extends \Twig_Extension
      *
      * @return string In underscore case
      */
-    public function underscoreCase($input)
+    public function toUnderscoreCase($input)
     {
         return $this->caseConverter->toUnderscoreCase($input);
     }
@@ -84,7 +84,7 @@ class CaseExtension extends \Twig_Extension
      *
      * @return string In title case
      */
-    public function titleCase($input)
+    public function toTitleCase($input)
     {
         return $this->caseConverter->toTitleCase($input);
     }
