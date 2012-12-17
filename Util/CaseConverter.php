@@ -76,6 +76,54 @@ class CaseConverter
     }
 
     /**
+     * Converts a string to pascal case format (e.g. FirstName)
+     *
+     * @param string $str String
+     *
+     * @return string $str translated into camel case
+     */
+    public function toPascalCase($str)
+    {
+        $str = ucfirst($str);
+
+        // underscore
+        $str = preg_replace_callback('/_([a-z])/', create_function('$c', 'return strtoupper($c[1]);'), $str);
+
+        // title
+        $str = preg_replace_callback('/ ([a-z])/', create_function('$c', 'return strtoupper($c[1]);'), $str);
+
+        $str = str_replace(' ', '', $str);
+
+        return $str;
+    }
+
+    /**
+     * Convert string
+     *
+     * @param string $str    Input string
+     * @param string $format Case format
+     *
+     * @return string
+     */
+    public function convert($str, $format = 'camel')
+    {
+        switch($format) {
+            case 'camel':
+                return $this->toCamelCase($str);
+                break;
+            case 'pascal':
+                return $this->toPascalCase($str);
+                break;
+            case 'title':
+                return $this->toTitleCase($str);
+                break;
+            case 'underscore':
+                return $this->toUnderscoreCase($str);
+                break;
+        }
+    }
+
+    /**
      * Get the format of a string
      *
      * @param string $str

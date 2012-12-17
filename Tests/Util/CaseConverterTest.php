@@ -74,6 +74,49 @@ class CaseConverterTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testwordsToCamelCase()
+    {
+        $this->assertEquals(
+            'titleCaseFormat',
+            $this->converter->toCamelCase('title case format')
+        );
+    }
+
+
+    public function testTitleToPascalCase()
+    {
+        $this->assertEquals(
+            'PascalCaseFormat',
+            $this->converter->toPascalCase('Pascal Case Format')
+        );
+    }
+
+    public function testCamelToPascalCase()
+    {
+        $this->assertEquals(
+            'PascalCaseFormat',
+            $this->converter->toPascalCase('pascalCaseFormat')
+        );
+    }
+
+    public function testUnderscoreToPascalCase()
+    {
+        $this->assertEquals(
+            'PascalCaseFormat',
+            $this->converter->toPascalCase('pascal_case_format')
+        );
+    }
+
+    public function testWordsToPascalCase()
+    {
+        $this->assertEquals(
+            'PascalCaseFormat',
+            $this->converter->toPascalCase('pascal case format')
+        );
+    }
+
+
+
     public function testTitleToUnderscoreCase()
     {
         $this->assertEquals(
@@ -97,6 +140,27 @@ class CaseConverterTest extends \PHPUnit_Framework_TestCase
             $this->converter->toUnderscoreCase('underscoreCaseFormat')
         );
     }
+
+    public function testConvert()
+    {
+        $this->assertEquals(
+            'underscore_case_format',
+            $this->converter->convert('underscoreCaseFormat', 'underscore')
+        );
+        $this->assertEquals(
+            'camelCaseFormat',
+            $this->converter->convert('camel Case Format', 'camel')
+        );
+        $this->assertEquals(
+            'PascalCaseFormat',
+            $this->converter->convert('pascal_case_format', 'pascal')
+        );
+        $this->assertEquals(
+            'Title Case Format',
+            $this->converter->convert('title case format', 'title')
+        );
+    }
+
 
     public function testGetFormat()
     {
