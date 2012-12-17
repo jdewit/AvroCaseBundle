@@ -44,6 +44,9 @@ class CaseConverter
         // camelCase
         $str = preg_replace_callback('/([A-Z])/', create_function('$c', 'return " " . ucfirst($c[1]);'), $str);
 
+        // lowercase title
+        $str = preg_replace_callback('/ ([a-z])/', create_function('$c', 'return " " . ucfirst($c[1]);'), $str);
+
         // underscore
         $str = preg_replace_callback('/_([a-z])/', create_function('$c', 'return " " . strtoupper($c[1]);'), $str);
 
