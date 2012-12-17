@@ -1,5 +1,5 @@
-AvroCaseBundle
------------------
+AvroCaseBundle [![Build Status](https://travis-ci.org/jdewit/AvroCaseBundle.png?branch=master)](https://travis-ci.org/jdewit/AvroCaseBundle)
+--------------
 Convert strings to different formats.
 
 Supports: camelCase, PascalCase, Title Case, and underscore_case.
