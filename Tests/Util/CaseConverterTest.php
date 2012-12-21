@@ -169,6 +169,49 @@ class CaseConverterTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testArrayArguments()
+    {
+        $this->assertEquals(
+            array(
+                'underscore_case_format1',
+                'underscore_case_format1',
+            ),
+            $this->converter->convert(array(
+                'underscoreCaseFormat1',
+                'underscoreCaseFormat1',
+            ), 'underscore')
+        );
+        $this->assertEquals(
+            array(
+                'camelCaseFormat1',
+                'camelCaseFormat2',
+            ),
+            $this->converter->convert(array(
+                'camel Case Format1',
+                'camel Case Format2',
+            ), 'camel')
+        );
+        $this->assertEquals(
+            array(
+                'PascalCaseFormat1',
+                'PascalCaseFormat2',
+            ),
+            $this->converter->convert(array(
+                'pascal_case_format1',
+                'pascal_case_format2',
+            ), 'pascal')
+        );
+        $this->assertEquals(array(
+                'Title Case Format1',
+                'Title Case Format2',
+            ),
+            $this->converter->convert(array(
+                'title case format1',
+                'title case format2',
+            ), 'title')
+        );
+    }
+
 
     public function testGetFormat()
     {
