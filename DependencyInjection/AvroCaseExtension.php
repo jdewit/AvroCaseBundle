@@ -37,6 +37,10 @@ class AvroCaseExtension extends Extension
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
         $loader->load('services.yml');
+
+        if ($config['use_twig']) {
+            $loader->load('twig.yml');
+        }
     }
 }
 

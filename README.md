@@ -22,6 +22,12 @@ Enable the bundle in the kernel:
     new Avro\CaseBundle\AvroCaseBundle
 ```
 
+Configuration
+-------------
+``` yaml
+avro_case:
+    use_twig: false #disable the twig extension (true by default)
+```
 
 Usage
 -----
@@ -34,7 +40,7 @@ $titleCaseFormat = $converter->toTitleCase($str);
 $underscoreCaseFormat = $converter->toUnderscoreCase($str);
 ```
 
-You can also convert string in your Twig files using the following filters
+The following filters are also available if you use Twig
 
 ``` jinja
     {{ var | camel }}

@@ -24,6 +24,9 @@ class Configuration
     {
         $treeBuilder = new TreeBuilder();
         $treeBuilder->root('avro_case', 'array')
+            ->children()
+                ->booleanNode('use_twig')->defaultValue(true)->cannotBeEmpty()->end()
+            ->end()
         ->end();
 
         return $treeBuilder->buildTree();

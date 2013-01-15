@@ -1,0 +1,6 @@
+services:
+    avro_case.twig.extension:
+        class: Avro\CaseBundle\Twig\Extension\CaseExtension
+        tags:
+            -  { name: twig.extension } 
+        arguments: ["@avro_case.converter"]
