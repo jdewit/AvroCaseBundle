@@ -1,6 +1,6 @@
 AvroCaseBundle [![Build Status](https://travis-ci.org/jdewit/AvroCaseBundle.png?branch=master)](https://travis-ci.org/jdewit/AvroCaseBundle)
 --------------
-Convert strings to different case formats.
+Convert strings or an array of strings to different case formats.
 
 Supports: camelCase, PascalCase, Title Case, and underscore_case.
 
@@ -11,7 +11,7 @@ This bundle is listed on packagist.
 Simply add it to your apps composer.json file
 
 ``` js
-    "avro/case-bundle": "0.1.1"
+    "avro/case-bundle": "0.1.2"
 ```
 
 Enable the bundle in the kernel:
