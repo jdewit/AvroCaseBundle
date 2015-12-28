@@ -1,10 +1,16 @@
 language: php
 
 php:
-  - 5.3
-  - 5.4
+  - 7.1
+  - 7.2
+  - 7.3
 
-before_script: composer install --dev
+before_install:
+  - |
+    # php.ini configuration
+    INI=~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+    phpenv config-rm xdebug.ini || echo "xdebug not available"
+    echo memory_limit = -1 >> $INI
 
-notifications:
-  email: joris.w.dewit@gmail.com
+install:
+  - composer install --no-interaction --prefer-dist

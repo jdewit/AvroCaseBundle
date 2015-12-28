@@ -1,6 +1,9 @@
 services:
-    avro_case.twig.extension:
-        class: Avro\CaseBundle\Twig\Extension\CaseExtension
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Avro\CaseBundle\Twig\Extension\CaseExtension:
         tags:
-            -  { name: twig.extension } 
-        arguments: ["@avro_case.converter"]
+            - { name: twig.extension }

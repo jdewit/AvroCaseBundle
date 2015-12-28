@@ -1,7 +1,7 @@
 {
     "name": "avro/case-bundle",
     "type": "symfony-bundle",
-    "description": "Symfony2 Case Converter Bundle",
+    "description": "Symfony Case Converter Bundle",
     "keywords": ["pascal", "title", "camel", "converter"],
     "homepage": "http://github.com/jdewit/AvroCaseBundle",
     "license": "MIT",
@@ -12,12 +12,22 @@
         }
     ],
     "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.4-dev"
+        }
+    },
     "require": {
-        "php": ">=5.3.2",
-        "twig/twig": "^1.12.0"
+        "php": "^7.1.3",
+        "twig/twig": "^1.12.0 || ^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7",
+        "symfony/config": "~4.0",
+        "symfony/dependency-injection": "~4.0",
+        "symfony/http-kernel": "~4.0"
     },
     "autoload": {
-        "psr-0": { "Avro\\CaseBundle": "" }
-    },
-    "target-dir": "Avro/CaseBundle"
+        "psr-4": { "Avro\\CaseBundle\\": "" }
+    }
 }
