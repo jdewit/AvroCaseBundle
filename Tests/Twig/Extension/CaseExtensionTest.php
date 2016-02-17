@@ -16,7 +16,13 @@ use Avro\CaseBundle\Twig\Extension\CaseExtension;
  */
 class CaseExtensionTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|\Avro\CaseBundle\Util\CaseConverter
+     */
     protected $converter;
+    /**
+     * @var CaseExtension
+     */
     protected $extension;
 
     public function setup()
@@ -39,10 +45,7 @@ class CaseExtensionTest extends \PHPUnit_Framework_TestCase
     public function testGetFilters()
     {
         $functions = $this->extension->getFilters();
-        $this->assertInstanceOf('\Twig_Filter_Method', $functions['underscore']);
-        $this->assertInstanceOf('\Twig_Filter_Method', $functions['pascal']);
-        $this->assertInstanceOf('\Twig_Filter_Method', $functions['camel']);
-        $this->assertInstanceOf('\Twig_Filter_Method', $functions['title']);
+        $this->assertContainsOnly('\Twig_SimpleFilter', $functions);
     }
 
     public function testCamelCase()
