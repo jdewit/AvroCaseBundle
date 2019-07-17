@@ -1,5 +1,5 @@
 {
-    "name": "avro/case-bundle",
+    "name": "avro/case-bundle2",
     "type": "symfony-bundle",
     "description": "Symfony Case Converter Bundle",
     "keywords": ["pascal", "title", "camel", "converter"],
@@ -9,6 +9,10 @@
         {
             "name": "Joris de Wit",
             "email": "joris.w.dewit@gmail.com"
+        },
+        {
+            "name": "Steffen Roßkamp",
+            "email": "sr@blackblizzard.org"
         }
     ],
     "minimum-stability": "dev",
