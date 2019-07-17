@@ -1,4 +1,7 @@
 services:
-    avro_case.converter:
-        class: Avro\CaseBundle\Util\CaseConverter
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
 
+    Avro\CaseBundle\Util\CaseConverter: ~

@@ -1,6 +1,6 @@
-AvroCaseBundle [![Build Status](https://travis-ci.org/jdewit/AvroCaseBundle.png?branch=master)](https://travis-ci.org/jdewit/AvroCaseBundle)
+AvroCaseBundle [![Build Status](https://travis-ci.org/MisatoTremor/AvroCaseBundle.png?branch=master)](https://travis-ci.org/MisatoTremor/AvroCaseBundle)
 --------------
-Convert strings or an array of strings to different case formats.
+Convert strings or strings in arrays to different case formats.
 
 Supports: camelCase, PascalCase, Title Case, and underscore_case.
 
@@ -10,39 +10,60 @@ This bundle is listed on packagist.
 
 Simply add it to your apps composer.json file
 
-``` js
-    "avro/case-bundle": "0.1.2"
+```json
+    "avro/case-bundle2": "^0.4.0"
 ```
 
-Enable the bundle in the kernel:
+Enable the bundle in config/bundles.php:
 
-``` php
-// app/AppKernel.php
-
-    new Avro\CaseBundle\AvroCaseBundle
+```php
+    Avro\CaseBundle\AvroCaseBundle::class => ['all' => true],
 ```
 
 Configuration
 -------------
-``` yaml
+
+*Optional:* Add this config
+
+```yaml
+# config/packages/avro_case.yaml
 avro_case:
     use_twig: false #disable the twig extension (true by default)
 ```
 
 Usage
 -----
-``` php
-$converter = $this->container->get('avro_case.converter');
+```php
+use Avro\CaseBundle\Util\CaseConverter;
 
-$camelCaseFormat = $converter->toCamelCase($str);
-$pascalCaseFormat = $converter->toPascalCase($str);
-$titleCaseFormat = $converter->toTitleCase($str);
-$underscoreCaseFormat = $converter->toUnderscoreCase($str);
+class SomeClass
+{
+    private $caseConverter;
+
+    /**
+     * @param CaseConverter $caseConverter
+     */
+    public function __construct(CaseConverter $caseConverter)
+    {
+        $this->caseConverter = $caseConverter;
+    }
+
+    /**
+     * @param string $str
+     */
+    public function foo(string $str)
+    {
+        $camelCaseFormat = $this->converter->toCamelCase($str);
+        $pascalCaseFormat = $this->converter->toPascalCase($str);
+        $titleCaseFormat = $this->converter->toTitleCase($str);
+        $underscoreCaseFormat = $this->converter->toUnderscoreCase($str);
+    }
+}
 ```
 
 The following filters are also available if you use Twig
 
-``` jinja
+```twig
     {{ var | camel }}
     {{ var | pascal }}
     {{ var | title }}

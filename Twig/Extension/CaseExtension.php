@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -10,7 +10,7 @@ namespace Avro\CaseBundle\Twig\Extension;
 use Avro\CaseBundle\Util\CaseConverter;
 
 /**
- * Twig extension for case conversion
+ * Twig extension for case conversion.
  *
  * @author Joris de Wit <joris.w.dewit@gmail.com>
  */
@@ -27,22 +27,22 @@ class CaseExtension extends \Twig_Extension
     }
 
     /**
-     * Get twig filters
+     * Get twig filters.
      *
      * @return array filters
      */
     public function getFilters()
     {
-        return array(
-            new \Twig_SimpleFilter('camel', array($this, 'toCamelCase')),
-            new \Twig_SimpleFilter('pascal', array($this, 'toPascalCase')),
-            new \Twig_SimpleFilter('underscore', array($this, 'toUnderscoreCase')),
-            new \Twig_SimpleFilter('title', array($this, 'toTitleCase'))
-        );
+        return [
+            new \Twig_SimpleFilter('camel', [$this, 'toCamelCase']),
+            new \Twig_SimpleFilter('pascal', [$this, 'toPascalCase']),
+            new \Twig_SimpleFilter('underscore', [$this, 'toUnderscoreCase']),
+            new \Twig_SimpleFilter('title', [$this, 'toTitleCase']),
+        ];
     }
 
     /**
-     * Convert string to camel case format
+     * Convert string to camel case format.
      *
      * @param string $input
      *
@@ -54,7 +54,7 @@ class CaseExtension extends \Twig_Extension
     }
 
     /**
-     * Convert string to pascal case format
+     * Convert string to pascal case format.
      *
      * @param string $input
      *
@@ -66,7 +66,7 @@ class CaseExtension extends \Twig_Extension
     }
 
     /**
-     * Convert string to underscore case format
+     * Convert string to underscore case format.
      *
      * @param string $input
      *
@@ -78,7 +78,7 @@ class CaseExtension extends \Twig_Extension
     }
 
     /**
-     * Convert string to title case format
+     * Convert string to title case format.
      *
      * @param string $input
      *
@@ -90,7 +90,7 @@ class CaseExtension extends \Twig_Extension
     }
 
     /**
-     * Get twig extension name
+     * Get twig extension name.
      *
      * @return string
      */

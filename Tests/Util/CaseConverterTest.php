@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -8,9 +8,13 @@
 namespace Avro\CaseBundle\Tests\Util;
 
 use Avro\CaseBundle\Util\CaseConverter;
+use PHPUnit_Framework_TestCase;
 
-class CaseConverterTest extends \PHPUnit_Framework_TestCase
+class CaseConverterTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var CaseConverter
+     */
     private $converter;
 
     public function setUp()
@@ -90,7 +94,6 @@ class CaseConverterTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
     public function testTitleToPascalCase()
     {
         $this->assertEquals(
@@ -122,8 +125,6 @@ class CaseConverterTest extends \PHPUnit_Framework_TestCase
             $this->converter->toPascalCase('pascal case format')
         );
     }
-
-
 
     public function testTitleToUnderscoreCase()
     {
@@ -169,49 +170,89 @@ class CaseConverterTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testArrayArguments()
+    public function testArrayArguments(): void
     {
         $this->assertEquals(
-            array(
-                'underscore_case_format1',
-                'underscore_case_format1',
-            ),
-            $this->converter->convert(array(
-                'underscoreCaseFormat1',
-                'underscoreCaseFormat1',
-            ), 'underscore')
+            [
+                'foo' => 'Title Case Format1',
+                'bar' => [
+                    'Title Case Format2',
+                    'Title Case Format3',
+                ],
+                'baz' => 'Title Case Format4',
+            ],
+            $this->converter->convert(
+                [
+                    'foo' => 'Title Case Format1',
+                    'bar' => [
+                        'title_case_format2',
+                        'title case format3',
+                    ],
+                    'baz' => 'titleCaseFormat4',
+                ],
+                'title'
+            )
         );
         $this->assertEquals(
-            array(
-                'camelCaseFormat1',
-                'camelCaseFormat2',
-            ),
-            $this->converter->convert(array(
-                'camel Case Format1',
-                'camel Case Format2',
-            ), 'camel')
+            [
+                'foo' => 'underscore_case_format1',
+                'bar' => [
+                    'underscore_case_format2',
+                    'underscore_case_format3',
+                ],
+            ],
+            $this->converter->convert(
+                [
+                    'foo' => 'underscoreCaseFormat1',
+                    'bar' => [
+                        'underscore_case_format2',
+                        'Underscore Case Format3',
+                    ],
+                ],
+                'underscore'
+            )
         );
         $this->assertEquals(
-            array(
-                'PascalCaseFormat1',
-                'PascalCaseFormat2',
-            ),
-            $this->converter->convert(array(
-                'pascal_case_format1',
-                'pascal_case_format2',
-            ), 'pascal')
+            [
+                'foo' => 'camelCaseFormat1',
+                'bar' => [
+                    'camelCaseFormat2',
+                    'camelCaseFormat3',
+                ],
+            ],
+            $this->converter->convert(
+                [
+                    'foo' => 'camelCaseFormat1',
+                    'bar' => [
+                        'camel_case_format2',
+                        'camel Case Format3',
+                    ],
+                ],
+                'camel'
+            )
         );
-        $this->assertEquals(array(
-                'Title Case Format1',
-                'Title Case Format2',
-            ),
-            $this->converter->convert(array(
-                'title case format1',
-                'title case format2',
-            ), 'title')
+        $this->assertEquals(
+            [
+                'foo' => 'PascalCaseFormat1',
+                'bar' => [
+                    'PascalCaseFormat2',
+                    'PascalCaseFormat3',
+                ],
+                'baz' => 'PascalCaseFormat4',
+            ],
+            $this->converter->convert(
+                [
+                    'foo' => 'PascalCaseFormat1',
+                    'bar' => [
+                        'pascal_case_format2',
+                        'pascal case format3',
+                    ],
+                    'baz' => 'Pascal Case Format4',
+                ],
+                'pascal'
+            )
         );
     }
-
 
     public function testGetFormat()
     {
@@ -235,7 +276,4 @@ class CaseConverterTest extends \PHPUnit_Framework_TestCase
             $this->converter->getFormat('Title Case Format')
         );
     }
-
-
 }
-
