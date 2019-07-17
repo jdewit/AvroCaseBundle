@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -24,15 +26,13 @@ class CaseConverter
     public function toUnderscoreCase($input)
     {
         if (is_array($input)) {
-            $result = [];
-            foreach ($input as $val) {
-                $result[] = $this->convertToUnderscoreCase($val);
-            }
-        } else {
-            $result = $this->convertToUnderscoreCase($input);
+            return array_map([$this, 'toUnderscoreCase'], $input);
+        }
+        if (is_string($input)) {
+            return $this->convertToUnderscoreCase($input);
         }
 
-        return $result;
+        return $input;
     }
 
     /**
@@ -45,15 +45,13 @@ class CaseConverter
     public function toTitleCase($input)
     {
         if (is_array($input)) {
-            $result = [];
-            foreach ($input as $val) {
-                $result[] = $this->convertToTitleCase($val);
-            }
-        } else {
-            $result = $this->convertToTitleCase($input);
+            return array_map([$this, 'toTitleCase'], $input);
+        }
+        if (is_string($input)) {
+            return $this->convertToTitleCase($input);
         }
 
-        return $result;
+        return $input;
     }
 
     /**
@@ -61,20 +59,18 @@ class CaseConverter
      *
      * @param string|array $input String or array argument
      *
-     * @return string $result or array with values translated into camel case
+     * @return string|array $result In camel case format
      */
     public function toCamelCase($input)
     {
         if (is_array($input)) {
-            $result = [];
-            foreach ($input as $val) {
-                $result[] = $this->convertToCamelCase($val);
-            }
-        } else {
-            $result = $this->convertToCamelCase($input);
+            return array_map([$this, 'toCamelCase'], $input);
+        }
+        if (is_string($input)) {
+            return $this->convertToCamelCase($input);
         }
 
-        return $result;
+        return $input;
     }
 
     /**
@@ -82,20 +78,18 @@ class CaseConverter
      *
      * @param string|array $input String or array argument
      *
-     * @return string|array $result translated into pascal case
+     * @return string|array $result In pascal case format
      */
     public function toPascalCase($input)
     {
         if (is_array($input)) {
-            $result = [];
-            foreach ($input as $val) {
-                $result[] = $this->convertToPascalCase($val);
-            }
-        } else {
-            $result = $this->convertToPascalCase($input);
+            return array_map([$this, 'toPascalCase'], $input);
+        }
+        if (is_string($input)) {
+            return $this->convertToPascalCase($input);
         }
 
-        return $result;
+        return $input;
     }
 
     /**
@@ -104,14 +98,11 @@ class CaseConverter
      * @param string|array $input  Input argument as string or array
      * @param string|array $format Desired Case format
      *
-     * @return string
+     * @return string|array
      */
     public function convert($input, $format = 'camel')
     {
         switch ($format) {
-            case 'camel':
-                return $this->toCamelCase($input);
-                break;
             case 'pascal':
                 return $this->toPascalCase($input);
                 break;
@@ -120,6 +111,10 @@ class CaseConverter
                 break;
             case 'underscore':
                 return $this->toUnderscoreCase($input);
+                break;
+            case 'camel':
+            default:
+                return $this->toCamelCase($input);
                 break;
         }
     }
@@ -131,17 +126,19 @@ class CaseConverter
      *
      * @return string The strings format
      */
-    public function getFormat($input)
+    public function getFormat(string $input): string
     {
         if (strpos($input, ' ')) {
             return 'title';
-        } elseif (strpos($input, '_')) {
-            return 'underscore';
-        } elseif ($input[0] === strtoupper($input[0])) {
-            return 'pascal';
-        } else {
-            return 'camel';
         }
+        if (strpos($input, '_')) {
+            return 'underscore';
+        }
+        if ($input[0] === strtoupper($input[0])) {
+            return 'pascal';
+        }
+
+        return 'camel';
     }
 
     /**
@@ -151,14 +148,14 @@ class CaseConverter
      *
      * @return string $input Translated into title format
      */
-    private function convertToTitleCase($input)
+    private function convertToTitleCase(string $input): string
     {
         $input = ucfirst($input);
 
         // camelCase
         $input = preg_replace_callback(
             '/([A-Z])/',
-            function ($c) {
+            static function ($c) {
                 return ' '.ucfirst($c[1]);
             },
             $input
@@ -167,7 +164,7 @@ class CaseConverter
         // lowercase title
         $input = preg_replace_callback(
             '/ ([a-z])/',
-            function ($c) {
+            static function ($c) {
                 return ' '.ucfirst($c[1]);
             },
             $input
@@ -176,7 +173,7 @@ class CaseConverter
         // underscore
         $input = preg_replace_callback(
             '/_([a-z])/',
-            function ($c) {
+            static function ($c) {
                 return ' '.strtoupper($c[1]);
             },
             $input
@@ -188,18 +185,18 @@ class CaseConverter
     /**
      * Converts a string into underscore format (e.g. first_name).
      *
-     * @param string|array $input String
+     * @param string $input String
      *
      * @return string $input In underscore format
      */
-    private function convertToUnderscoreCase($input)
+    private function convertToUnderscoreCase(string $input): string
     {
-        $input = trim(lcfirst($input));
+        $input = lcfirst(trim($input));
 
         // camel case
         $input = preg_replace_callback(
             '/([A-Z])/',
-            function ($c) {
+            static function ($c) {
                 return '_'.strtolower($c[1]);
             },
             $input
@@ -218,14 +215,14 @@ class CaseConverter
      *
      * @return string $input In Camel case format
      */
-    private function convertToCamelCase($input)
+    private function convertToCamelCase(string $input): string
     {
         $input = lcfirst($input);
 
         // underscore
         $input = preg_replace_callback(
             '/_([a-z])/',
-            function ($c) {
+            static function ($c) {
                 return strtoupper($c[1]);
             },
             $input
@@ -234,7 +231,7 @@ class CaseConverter
         // title
         $input = preg_replace_callback(
             '/ ([a-z])/',
-            function ($c) {
+            static function ($c) {
                 return strtoupper($c[1]);
             },
             $input
@@ -252,14 +249,14 @@ class CaseConverter
      *
      * @return string $input translated into pascal case
      */
-    private function convertToPascalCase($input)
+    private function convertToPascalCase(string $input): string
     {
         $input = ucfirst($input);
 
         // underscore
         $input = preg_replace_callback(
             '/_([a-z])/',
-            function ($c) {
+            static function ($c) {
                 return strtoupper($c[1]);
             },
             $input
@@ -268,7 +265,7 @@ class CaseConverter
         // title
         $input = preg_replace_callback(
             '/ ([a-z])/',
-            function ($c) {
+            static function ($c) {
                 return strtoupper($c[1]);
             },
             $input
